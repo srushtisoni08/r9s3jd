@@ -62,3 +62,8 @@ th { position: sticky; top: 0; background: var(--panel); color: var(--muted); fo
 @media (max-width: 600px) {
   .card .value { font-size: 20px; }
 }
+
+.row2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; }
+.row2 .panel { margin-bottom: 0; }
+.section-title { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 28px 0 12px; }
+@media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } }

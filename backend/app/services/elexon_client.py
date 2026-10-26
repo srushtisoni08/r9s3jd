@@ -103,24 +103,28 @@ def _normalize(raw: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
 
 
 async def load_data(refresh: bool = False):
-    """Return (actuals_df, forecasts_df, fetched_at). Cached in memory + on disk."""
+    """Return (actuals_df, forecasts_df, fetched_at).
+    Order: memory -> /tmp cache -> bundled snapshot -> live Elexon fetch."""
     cache_file = config.CACHE_DIR / "elexon_raw.json"
+    raw = None
 
-    if not refresh and "raw" in _memory:
-        raw = _memory["raw"]
-    elif not refresh and cache_file.exists():
-        raw = json.loads(cache_file.read_text())
-        _memory["raw"] = raw
-    else:
+    if not refresh:
+        raw = _memory.get("raw")
+        for path in (cache_file, config.SNAPSHOT_FILE):
+            if raw is None and path.exists():
+                raw = json.loads(path.read_text())
+
+    if raw is None:
         raw = await _fetch_raw()
         try:
             config.CACHE_DIR.mkdir(parents=True, exist_ok=True)
             cache_file.write_text(json.dumps(raw))
-        except OSError as e:  # read-only FS on some hosts
+        except OSError as e:
             log.warning("Could not write cache: %s", e)
-        _memory["raw"] = raw
 
-    if "frames" not in _memory or _memory.get("frames_for") != raw["fetched_at"]:
+    _memory["raw"] = raw
+
+    if _memory.get("frames_for") != raw["fetched_at"]:
         _memory["frames"] = _normalize(raw)
         _memory["frames_for"] = raw["fetched_at"]
 

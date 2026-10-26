@@ -19,6 +19,7 @@ DECISION_CUTOFF = os.getenv("DECISION_CUTOFF", "09:00")
 FORECAST_PUBLISH_FROM = "2025-12-25"
 
 CACHE_DIR = Path(os.getenv("CACHE_DIR", "/tmp/wind_cache"))
+SNAPSHOT_FILE = Path(__file__).resolve().parent.parent / "data" / "snapshot.json"
 
 CORS_ORIGINS = [
     o.strip()
