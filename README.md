@@ -8,8 +8,8 @@ Web app that helps a UK energy utility's day-ahead desk see **which wind forecas
 
 ## Live demo
 
-- App: [<FRONTEND_URL>](https://r9s3jd-5g6ia1f0g-srushti-sonis-projects.vercel.app/)
-- API: [<BACKEND_URL>](https://wind-forecast-api-srushti.vercel.app/) (try `/docs`, `/health`, `/api/accuracy`)
+- App: [<WindProcure Dashboard>](https://r9s3jd-5g6ia1f0g-srushti-sonis-projects.vercel.app/)
+- API: [<Wind Forecast API>](https://wind-forecast-api-srushti.vercel.app/) (try `/docs`, `/health`, `/api/accuracy`)
 
 ## AI tools disclosure
 
