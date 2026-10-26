@@ -11,6 +11,7 @@ app = FastAPI(title="Wind Procurement Intelligence API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=config.CORS_ORIGINS,
+    allow_origin_regex=r"https://r9s3jd.*\.vercel\.app",
     allow_methods=["GET"],
     allow_headers=["*"],
 )
@@ -21,6 +22,15 @@ app.include_router(router)
 @app.exception_handler(ElexonError)
 async def elexon_error_handler(_, exc: ElexonError):
     return JSONResponse(status_code=502, content={"detail": str(exc)})
+
+
+@app.get("/")
+def root():
+    return {
+        "service": "Wind Procurement Intelligence API",
+        "docs": "/docs",
+        "health": "/health",
+    }
 
 
 @app.get("/health")

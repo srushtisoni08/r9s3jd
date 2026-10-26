@@ -1,4 +1,6 @@
-const BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+const BASE = (
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8000"
+).replace(/\/$/, "");
 
 async function get(path, params = {}) {
   const qs = new URLSearchParams(params).toString();
@@ -6,7 +8,7 @@ async function get(path, params = {}) {
   try {
     res = await fetch(`${BASE}${path}${qs ? `?${qs}` : ""}`);
   } catch {
-    throw new Error("Cannot reach the backend. Is it running?");
+    throw new Error(`Cannot reach the backend at ${BASE}`);
   }
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
