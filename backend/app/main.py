@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app import config
+from app.api.routes import router
 from app.services.elexon_client import ElexonError, load_data
 
 app = FastAPI(title="Wind Procurement Intelligence API")
@@ -13,6 +14,8 @@ app.add_middleware(
     allow_methods=["GET"],
     allow_headers=["*"],
 )
+
+app.include_router(router)
 
 
 @app.exception_handler(ElexonError)
