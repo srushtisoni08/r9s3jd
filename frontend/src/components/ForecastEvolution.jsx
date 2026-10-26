@@ -84,7 +84,7 @@ export default function ForecastEvolution({ date, rows }) {
           </div>
 
           <ResponsiveContainer width="100%" height={300}>
-            <ComposedChart data={points} margin={{ top: 8, right: 16, left: 8, bottom: 0 }}>
+            <ComposedChart data={points} margin={{ top: 30, right: 16, left: 8, bottom: 8 }}>
               <CartesianGrid stroke="#22304d" strokeDasharray="3 3" />
               <XAxis
                 dataKey="t" type="number" scale="time"
