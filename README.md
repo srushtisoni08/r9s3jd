@@ -71,9 +71,6 @@ This project was built with assistance from **Claude (Anthropic)** for design di
 │   │   └── utils/format.js
 │   ├── Dockerfile
 │   └── vite.config.js
-├── docs/
-│   ├── ARCHITECTURE.md
-│   └── VIDEO_SCRIPT.md
 ├── docker-compose.yml
 ├── .env.example
 └── README.md
